@@ -17,7 +17,7 @@ namespace GradeBook.GradeBooks
         {
             if (Students.Count < 5)
             {
-                throw new InvalidOperationException("Not enough students");
+                throw new InvalidOperationException("Ranked grading requires at least 5 students");
             }
                 var threshold = (int)Math.Ceiling(Students.Count * 0.2);
                 var grades = Students.OrderByDescending(e => e.AverageGrade).Select(e => e.AverageGrade).ToList();
@@ -54,6 +54,19 @@ namespace GradeBook.GradeBooks
                 base.CalculateStatistics();
             }
             
+        }
+        public override void CalculateStudentStatistics(string name)
+        {
+            if (Students.Count < 5)
+            {
+                Console.WriteLine("Ranked grading requires at least 5 students");
+                return;
+            }
+            else
+            {
+                base.CalculateStudentStatistics(name);
+            }
+
         }
     }
 }
