@@ -108,6 +108,8 @@ namespace GradeBook.GradeBooks
 
         public virtual double GetGPA(char letterGrade, StudentType studentType)
         {
+            var gpa = 0;
+
             switch (letterGrade)
             {
                 case 'A':
@@ -121,7 +123,11 @@ namespace GradeBook.GradeBooks
                 case 'F':
                     return 0;
             }
-            return 0;
+            if (IsWeighted && (studentType == StudentType.Honors || studentType == StudentType.DualEnrolled))
+            {
+                gpa += 1;
+            }
+            return gpa;
         }
 
         public virtual void CalculateStatistics()
